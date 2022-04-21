@@ -22,7 +22,7 @@ function creationCard(c){
     // Ajouter src à img
     img.src = c.imageUrl;
     // ajouter alt à img
-    img.alt = c.altText
+    img.alt = c.altTxt
     // créer h3 
     let h3 = document.createElement("h3");
     // ajouter class à h3
