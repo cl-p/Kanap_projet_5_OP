@@ -1,3 +1,6 @@
+import {Panier} from "./panier";
+
+
 let adresseSite = document.URL;
 let url = new URL(adresseSite);
 let idUrl = url.searchParams.get("id");
@@ -39,3 +42,26 @@ function creationProduit(c){
     });
     parent.appendChild(img);
 }
+
+
+// ajout d'un produit dans le panier
+let button = document.getElementById("addToCart");
+button.onclick = ajout
+
+function ajout(e){
+    let choixColor = document.getElementById("colors");
+    let color = choixColor.value;
+    
+    let nombreArticle = document.getElementById("quantity");
+    let quantiteArticle = nombreArticle.value;
+    
+    let lignePanier = {
+        id: idUrl, 
+        quantite: quantiteArticle,
+        couleur: color,
+    }
+}
+
+// instancier une classe + création d'un panier
+let monPanier = new Panier();
+console.log(monPanier)
