@@ -2,7 +2,7 @@
   "name": "kanap-front-end",
   "version": "1.0.0",
   "description": "This is the front end and back end server for Project 5 of the Web Developer path.",
-  "main": "index.js",
+  "main": "js/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/cl-p/Kanap_projet_5_OP/issues"
   },
-  "homepage": "https://github.com/cl-p/Kanap_projet_5_OP#readme"
+  "homepage": "https://github.com/cl-p/Kanap_projet_5_OP#readme",
+  "devDependencies": {
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
+  }
 }
