@@ -4,8 +4,10 @@
   "description": "This is the front end and back end server for Project 5 of the Web Developer path.",
   "main": "js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "...",
+    "build": "webpack"
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cl-p/Kanap_projet_5_OP.git"
