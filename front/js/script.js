@@ -6,6 +6,8 @@ fetch("http://localhost:3000/api/products").then(response => {
         });
 
    })
+}).catch(reason => {
+    console.log(reason)
 })
 
 // cette fonction va créer tout l'HTML correspondant pour l'accueil
