@@ -2,7 +2,7 @@
   "name": "kanap-front-end",
   "version": "1.0.0",
   "description": "This is the front end and back end server for Project 5 of the Web Developer path.",
-  "main": "js/index.js",
+  "main": "js/script.js",
   "scripts": {
     "test": "...",
     "build": "webpack"

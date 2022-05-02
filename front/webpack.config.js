@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
   mode: "production",
   entry: {
-    app: "./front/js/index.js"
+    index: "./js/script.js",
+    product: "./js/product.js"
   },
   output: {
     filename: "[name].bundle.js",
