@@ -55,13 +55,8 @@ function ajout(e){
     let nombreArticle = document.getElementById("quantity");
     let quantiteArticle = nombreArticle.value;
     
-    let lignePanier = {
-        id: idUrl, 
-        quantite: quantiteArticle,
-        couleur: color,
-    }
+    // instancier une classe + création d'un panier
+    let monPanier = new Panier();
+    monPanier.ajoutPanier(idUrl, quantiteArticle, color)
 }
 
-// instancier une classe + création d'un panier
-let monPanier = new Panier();
-console.log(monPanier)

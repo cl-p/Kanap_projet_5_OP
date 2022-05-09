@@ -1,14 +1,29 @@
+import { Panier } from "./panier";
+
+
 // créer article
+let creationArticle = document.getElementById(cart__items)
+let article = document.createElement("article")
     // ajouter class
+    article.classList("cart__item")
     // ajouter data_id
+
     // ajouter data_color
 //créer div
+let creationDiv = document.getElementsByClassName("cart__item")
+let div = document.createElement("div")
     // ajouter class
+    div.classList("cart__item__img")
         // créer img
+        let img = document.createElement("img")
             // ajouter src
+            
             // ajouter alt 
 // créer div
+let creationDivText = document.getElementsByClassName("cart__item")
+let divText = document.createElement("div")
     // ajouter une class
+
         // créer div enfant de la div précédente
             // ajouter class
             // créer h2 + text
@@ -45,3 +60,5 @@
 
 
 
+// Proposez message si 2 canapés same mais couleur différente 
+// possibilité au client de modifier/ supprimer un article --> regarder icone 
