@@ -1,17 +1,27 @@
 
 export class Panier {
-    ajoutPanier(id, quantite, couleur){
+    ajoutPanier(id, quantite, couleur, image, alt, nom, prix){
         let produit = {
             idProduit: id,
             quantiteProduit: quantite,
-            couleurProduit: couleur
+            couleurProduit: couleur,
+            imageProduit: image,
+            altImageProduit: alt,
+            nomProduit: nom,
+            prixProduit: prix
         }
     
+
        // Récupération d'articles stockés dans localstorage 
        // renvoi le tableau d'objet (propriétés) en format string
         let recuperationPanier = localStorage.getItem("panier");
         // transformation du format string en tableau
         let articles = JSON.parse(recuperationPanier)
+        // création d'un panier : impossible si articles est nul, car récupérationPanier est nul (parce que la clé panier à besoin d'être initialisée)
+        if (articles === null){
+            // articles devient un tableau, pour pouvoir stocker les objets produits
+            articles = []
+        }
         // ajout objet à la fin du tableau
         articles.push(produit)
 
@@ -26,6 +36,5 @@ export class Panier {
         let recupArticles = localStorage.getItem("panier")
         let tousLesArticles = JSON.parse(recupArticles)
         return tousLesArticles;
-
     }
 }

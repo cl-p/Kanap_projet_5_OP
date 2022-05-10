@@ -1,51 +1,62 @@
 import { Panier } from "./panier";
 
+// il faut faire un nouveau panier pour pouvoir prendre les infos de la classe panier et les afficher
+let recapitulatifPanier = new Panier();
+let articlesPanier = recapitulatifPanier.cart()
+console.log("coucou")
+articlesPanier.forEach(element => {
+    creationLignePanier(element)
+});
 
-// créer article
-let creationArticle = document.getElementById(cart__items)
-let article = document.createElement("article")
+
+function creationLignePanier(ligne){
+    console.log("coucou")
+    // créer article
+    let listeArticles = document.getElementById("cart__items")
+    let article = document.createElement("article")
     // ajouter class
-    article.classList("cart__item")
-    // ajouter data_id
-
-    // ajouter data_color
-//créer div
-let creationDiv = document.getElementsByClassName("cart__item")
-let div = document.createElement("div")
-    // ajouter class
-    div.classList("cart__item__img")
-        // créer img
-        let img = document.createElement("img")
-            // ajouter src
-            
-            // ajouter alt 
-// créer div
-let creationDivText = document.getElementsByClassName("cart__item")
-let divText = document.createElement("div")
-    // ajouter une class
-
-        // créer div enfant de la div précédente
-            // ajouter class
-            // créer h2 + text
-            // créer p + text
-            // créer p + text 
-        // créer div 
-            // ajouter class
-            // créer div
-                // ajouter class
-                // créer p + text
-                // créer input 
-                    // ajouter type
-                    // ajouter class
-                    // ajouter name 
-                    // ajouter minimum 
-                    // ajouter maximum
-                    // ajouter value 
-            // créer div
-                // ajouter class
-                // créer p + text 
+    article.classList.add("cart__item")
+    // ajouter id du produit
+    article.dataset.id = ligne.idProduit
+    // ajouter color du produit
+    article.dataset.color = ligne.couleurProduit
 
 
+    // créer div enfant de article 
+
+    article.innerHTML = `
+        <div class="cart__item__img">
+            <img src=${ligne.imageProduit} alt=${ligne.altImageProduit}>
+        </div>
+        <div class="cart__item__content">
+            <div class="cart__item__content__description">
+                <h2>${ligne.nomProduit} </h2>
+                <p> ${ligne.couleurProduit} </p>
+                <p> ${ligne.prixProduit} €</p>
+            </div>
+            <div class="cart__item__content__settings">
+                <div class="cart__item__content__settings__quantity">
+                    <p>Qté : </p>
+                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+                </div>
+                <div class="cart__item__content__settings__delete">
+                    <p class="deleteItem">Supprimer</p>
+                </div>
+            </div>
+        </div>
+    `
+
+
+
+    listeArticles.append(article)
+}
+
+
+// fetch("http://localhost:3000/api/products/order").then(response =>{
+//     response.json().then(article => {
+//         insérer fonction
+//     })
+// })
 
 
 
@@ -57,8 +68,19 @@ let divText = document.createElement("div")
 
 // ajouter message d'erreur dans id = "firstNameErrorMsg"
 
+// --> SI 2 fois le même article ET couleur différente 
+    // --> ELSE IF 2 fois le même article ET même couleur 
+        // RETOURNER message erreur
+
+/**
+ * if element.idProduit === element.idProduit && element.couleurProduit === element.couleurProduit {
+ *  
+ * }
+ * 
+ * 
+ *  
+ * */ 
 
 
 
-// Proposez message si 2 canapés same mais couleur différente 
 // possibilité au client de modifier/ supprimer un article --> regarder icone 
