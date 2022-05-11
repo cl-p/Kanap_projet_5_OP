@@ -22,9 +22,39 @@ export class Panier {
             // articles devient un tableau, pour pouvoir stocker les objets produits
             articles = []
         }
-        // ajout objet à la fin du tableau
-        articles.push(produit)
 
+
+        // Condition lors ajout du produit 
+
+        // On part du principe que le produit qu'on veut ajouter est unique
+        let produitUnique = true
+
+        // on veut vérifier chaque élément du tableau articles pour comparer les id 
+        articles.forEach(element => {
+            if (element.idProduit === produit.idProduit && element.couleurProduit === produit.couleurProduit){
+                element.quantiteProduit = parseInt(element.quantiteProduit) + parseInt(produit.quantiteProduit)
+                // lorsque le produit que l'on cherche à ajouter passe dans la condition if, alors la porte du localstorage se ferme
+                produitUnique = false
+            } 
+        });
+        
+        /* 
+        
+        
+        Si plusieurs elements ont le même id, ne pas push un nouvel article au localstorage 
+        
+        
+        */
+       
+       
+       
+       // ajout objet à la fin du tableau SEULEMENT si l'id est UNIQUE
+       if (produitUnique === true) {
+
+           articles.push(produit)
+
+       }
+       
         // ajout  nouveau tableau (produit) au localstorage
         localStorage.setItem("panier", JSON.stringify(articles))
     }

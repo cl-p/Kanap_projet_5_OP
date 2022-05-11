@@ -3,14 +3,20 @@ import { Panier } from "./panier";
 // il faut faire un nouveau panier pour pouvoir prendre les infos de la classe panier et les afficher
 let recapitulatifPanier = new Panier();
 let articlesPanier = recapitulatifPanier.cart()
-console.log("coucou")
+let total = 0
+let totalQuantiteCanape = 0
+
 articlesPanier.forEach(element => {
     creationLignePanier(element)
+    let totalPourUneLigne = parseInt(element.quantiteProduit) * parseInt(element.prixProduit)
+    total = total + totalPourUneLigne
+    let totalQuantiteCanapePourUneLigne = parseInt(element.quantiteProduit)
+    totalQuantiteCanape = totalQuantiteCanape + totalQuantiteCanapePourUneLigne
 });
 
 
 function creationLignePanier(ligne){
-    console.log("coucou")
+
     // créer article
     let listeArticles = document.getElementById("cart__items")
     let article = document.createElement("article")
@@ -37,7 +43,7 @@ function creationLignePanier(ligne){
             <div class="cart__item__content__settings">
                 <div class="cart__item__content__settings__quantity">
                     <p>Qté : </p>
-                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="42">
+                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${ligne.quantiteProduit}">
                 </div>
                 <div class="cart__item__content__settings__delete">
                     <p class="deleteItem">Supprimer</p>
@@ -52,35 +58,21 @@ function creationLignePanier(ligne){
 }
 
 
-// fetch("http://localhost:3000/api/products/order").then(response =>{
-//     response.json().then(article => {
-//         insérer fonction
-//     })
-// })
-
-
-
 // ajouter nb d'articles total du panier dans id = "totalQuantity"
+let afficherQuantiteCanape = document.getElementById("totalQuantity")
+afficherQuantiteCanape.innerText = totalQuantiteCanape
+
+
+
 // ajouter prix total du panier dans id = "totalPrice"
+let afficherTotalPanier = document.getElementById("totalPrice")
+afficherTotalPanier.innerText = total
+
+
+
+
 
 
 
 
 // ajouter message d'erreur dans id = "firstNameErrorMsg"
-
-// --> SI 2 fois le même article ET couleur différente 
-    // --> ELSE IF 2 fois le même article ET même couleur 
-        // RETOURNER message erreur
-
-/**
- * if element.idProduit === element.idProduit && element.couleurProduit === element.couleurProduit {
- *  
- * }
- * 
- * 
- *  
- * */ 
-
-
-
-// possibilité au client de modifier/ supprimer un article --> regarder icone 
