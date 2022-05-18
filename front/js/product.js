@@ -57,7 +57,6 @@ function ajout(produit){
     console.log(produit)
     let choixColor = document.getElementById("colors");
     let color = choixColor.value;
-    
     let nombreArticle = document.getElementById("quantity");
     let quantiteArticle = nombreArticle.value;
 
