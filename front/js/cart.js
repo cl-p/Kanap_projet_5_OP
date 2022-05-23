@@ -100,57 +100,89 @@ function creationLignePanier(ligne){
 
 }
 
-/*
-récupérer le contenu du champ prénom
-vérifier si correct (pas de nombre/ pas de caractères spéciaux)
-si regex non nul --> ajouter message d'erreur dans id = "firstNameErrorMsg"
-Faire çà pour chaque champ en adaptant le regex utilisé 
-*/
 
-function verificationPrenom()
-{
+function passerCommande(){
+    // récuperer les valeurs des inputs
+
     let inputPrenom = document.getElementById("firstName")
     let prenom = inputPrenom.value
-    let message = document.getElementById("firstNameErrorMsg")
-    message.innerText = "Attention, un ou plusieurs caractères ne sont pas acceptés"
-
-    if (prenom.match("[\d|_|\*|&|(|)|=|'|#|~|$|¤|+|{|@|}|€]") != null){
-        return message.innerText
-    }
-}
-
-
-function verificationNom(){
     let inputNom = document.getElementById("lastName")
     let nom = inputNom.value
-    let message = document.getElementById("lastNameErrorMsg")
-    message.innerText = "Attention, un ou plusieurs caractères ne sont pas acceptés"
-
-    if (nom.match("[\d|_|\*|&|(|)|=|'|#|~|$|¤|+|{|@|}|€]") != null){
-        return message.innerText
-    }
-
-}
-
-function verificationAdresse(){
     let inputAdresse = document.getElementById("address")
     let adresse = inputAdresse.value
-    let message = document.getElementById("addressErrorMsg")
-    message.innerText = "Attention, un ou plusieurs caractères ne sont pas acceptés"
-
-    if (nom.match("[&|(|)|=|'|#|~|$|¤|+|{|@|}|€]") != null){
-       return message.innerText
-    }
-}
-
-function verificationVille(){
     let inputVille = document.getElementById("city")
     let ville = inputVille.value
-    let message = document.getElementById("cityErrorMsg")
-    message.innerText = "Attention, un ou plusieurs caractères ne sont pas acceptés"
+    let inputEmail = document.getElementById("email")
+    let email = inputEmail.value
 
-    if (nom.match("[\d|_|\*|&|(|)|=|'|#|~|$|¤|+|{|@|}|€]") != null){
-        return message.innerText
+    // vérifier s'ils sont corrects
+
+    if (prenom.match("[\\d_\\*&='#~$¤{@}€]") != null || prenom === ""){
+        alert("Attention, un ou plusieurs caractères ne sont pas acceptés")
+        return
     }
 
+    if (nom.match("[\\d_\\*&='#~$¤{@}€]") != null || nom === ""){
+        alert("Attention, un ou plusieurs caractères ne sont pas acceptés")
+        return
+    }
+
+    if (adresse.match("[_\\*&='#~$¤{@}€]") != null || adresse === ""){
+        alert("Attention, un ou plusieurs caractères ne sont pas acceptés")
+        return
+    }
+
+    if (ville.match("[\\d_\\*&='#~$¤{@}€]") != null || ville === ""){
+        alert("Attention, un ou plusieurs caractères ne sont pas acceptés")
+        return
+    }
+
+    if (email.match(".*@.*\\..*") === null || email === ""){
+        alert("Attention, il manque le @ ou le .fr ou le .com à votre adresse mail")
+        return
+    }
+
+
+    // envoyer les informations à l'API 
+    let idProduits = []
+    articlesPanier.forEach(element => {
+        idProduits.push(element.idProduit)
+    });
+
+
+
+    let donnees = {
+        contact : {
+            firstName : prenom, 
+            lastName : nom,
+            address : adresse,
+            city : ville,
+            email : email
+        },
+        products : idProduits
+    }
+
+    fetch("http://localhost:3000/api/products/order", {
+        method : "POST", 
+        // il faut spécifier le type d'objet
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(donnees)
+    }).then( response => {
+        response.json().then( donneesJson =>{
+            console.log(donneesJson.orderId)
+            // il faut rediriger les clients sur la page de confirmation de la commande
+            location.assign("/front/html/confirmation.html?numeroDeCommande=" + donneesJson.orderId)
+        })
+    })
+
 }
+
+let boutonCommander = document.getElementById("order")
+boutonCommander.onclick = e => {
+    // annule le type "submit"par defaut du bouton commander
+    e.preventDefault()
+    passerCommande()
+}
+

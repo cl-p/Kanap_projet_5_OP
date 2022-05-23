@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/cl-p/Kanap_projet_5_OP/issues"
   },
-  "homepage": "https://github.com/cl-p/Kanap_projet_5_OP#readme"
+  "homepage": "https://github.com/cl-p/Kanap_projet_5_OP#readme",
+  "dependencies": {
+    "webpack": "^5.72.1"
+  }
 }
