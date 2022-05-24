@@ -1,6 +1,6 @@
 
 export class Panier {
-    ajoutPanier(id, quantite, couleur, image, alt, nom, prix){
+    ajoutPanier(id, quantite, couleur, image, alt, nom){
         let produit = {
             idProduit: id,
             quantiteProduit: quantite,
@@ -8,7 +8,7 @@ export class Panier {
             imageProduit: image,
             altImageProduit: alt,
             nomProduit: nom,
-            prixProduit: prix
+            
         }
     
 

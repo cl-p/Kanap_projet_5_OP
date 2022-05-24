@@ -2,47 +2,80 @@ import { Panier } from "./panier";
 
 // il faut faire un nouveau panier pour pouvoir prendre les infos de la classe panier et les afficher
 let recapitulatifPanier = new Panier();
-let articlesPanier = recapitulatifPanier.cart()
+let articlesPanier = []
+affichagePanier()
+
+
 function supprimerArticle(article){
     recapitulatifPanier.deleteItem(article)
     // utiliser querySelector permet de sélectionner l'article précis que l'on souhaite supprimer 
     let articleASupprimer = document.querySelector('[data-id="'+article.idProduit+'"]')
     // la fonction remove permet de supprimer l'article de la partie visible du panier par l'utilisateur
     articleASupprimer.remove()
+    affichagePanier()
 }
 
-articlesPanier.forEach(element => {
-    creationLignePanier(element)
+
+
+function affichagePanier(){
+
+    let listeArticles = document.getElementById("cart__items")
+    listeArticles.innerHTML = ""
+    document.getElementById("totalPrice").innerHTML = ""
+    document.getElementById("totalQuantity").innerHTML = ""
+
+    articlesPanier = recapitulatifPanier.cart()
+
+    if (articlesPanier.length === 0){
+        document.getElementById("cartAndFormContainer").innerHTML = `
+        <a href="/front/html" style="text-decoration: none">
+            <h1 style="text-align: center">
+                Votre panier est vide ! <br>
+                Pour trouver le canapé de vos rêves, c'est par ici !
+            </h1>
+        </a>
+        `
+
+    }
+
+    articlesPanier.forEach(element => {
+// il ne faut pas stocker le prix dans le localStorage, donc on fait appel à l'API pour qu'elle nous fournisse le prix de chaque canapé dans le panier
+    fetch("http://localhost:3000/api/products/" + element.idProduit).then( response => {
+        response.json().then(p =>{
+            element.prix = p.price
+            creationLignePanier(element)
+
+
+            // gestion du prix total du panier
+            let afficherTotalPanier = document.getElementById("totalPrice")
+            let totalActuel = parseInt(afficherTotalPanier.innerText)
+            // si totalActuel n'est pas un nombre, on veut que çà le soit
+            if (isNaN(totalActuel)){
+                totalActuel = 0
+            }
+            totalActuel = totalActuel + (element.quantiteProduit * element.prix)
+            afficherTotalPanier.innerText = totalActuel
+            
+
+            // gestion de la quantité totale du panier
+            let afficherQuantiteCanape = document.getElementById("totalQuantity")
+            let totalQuantite = parseInt(afficherQuantiteCanape.innerText)
+            if (isNaN(totalQuantite)){
+                totalQuantite = 0
+            }
+            totalQuantite = totalQuantite + parseInt(element.quantiteProduit)
+            afficherQuantiteCanape.innerText = totalQuantite
+        })
+    })  
 });
-
-
-calculTotal(articlesPanier)
-
-
-function calculTotal (articles){
-    // le paramètre articles = tableau d'objets 
-    let total = 0
-    let totalQuantiteCanape = 0
-    articles.forEach(element => {
-        let totalPourUneLigne = parseInt(element.quantiteProduit) * parseInt(element.prixProduit)
-        total = total + totalPourUneLigne
-        let totalQuantiteCanapePourUneLigne = parseInt(element.quantiteProduit)
-        totalQuantiteCanape = totalQuantiteCanape + totalQuantiteCanapePourUneLigne
-    });
-
-
-    // ajouter nb d'articles total du panier dans id = "totalQuantity"
-    let afficherQuantiteCanape = document.getElementById("totalQuantity")
-    afficherQuantiteCanape.innerText = totalQuantiteCanape
-
-
-
-    // ajouter prix total du panier dans id = "totalPrice"
-    let afficherTotalPanier = document.getElementById("totalPrice")
-    afficherTotalPanier.innerText = total
 }
+
+
+
 
 function creationLignePanier(ligne){
+
+
 
     // créer article
     let listeArticles = document.getElementById("cart__items")
@@ -65,7 +98,7 @@ function creationLignePanier(ligne){
             <div class="cart__item__content__description">
                 <h2>${ligne.nomProduit} </h2>
                 <p> ${ligne.couleurProduit} </p>
-                <p> ${ligne.prixProduit} €</p>
+                <p> ${ligne.prix} €</p>
             </div>
             <div class="cart__item__content__settings">
                 <div class="cart__item__content__settings__quantity">
@@ -92,8 +125,7 @@ function creationLignePanier(ligne){
         let nouveauPanier = new Panier()
         nouveauPanier.modifierQuantiteArticle(ligne.idProduit, nouvelleQuantite)
         // pour que la nouvell quantité s'affiche en HTML automatiquement sans avoir à rafraichir la page manuellement, il faut rappeler la totalité du "nouveau" panier
-        articlesPanier = recapitulatifPanier.cart()
-        calculTotal(articlesPanier)  
+        affichagePanier() 
     })
 
     listeArticles.append(article)
@@ -118,22 +150,22 @@ function passerCommande(){
     // vérifier s'ils sont corrects
 
     if (prenom.match("[\\d_\\*&='#~$¤{@}€]") != null || prenom === ""){
-        alert("Attention, un ou plusieurs caractères ne sont pas acceptés")
+        alert("Attention, un ou plusieurs caractères ne sont pas acceptés dans le champ prénom")
         return
     }
 
     if (nom.match("[\\d_\\*&='#~$¤{@}€]") != null || nom === ""){
-        alert("Attention, un ou plusieurs caractères ne sont pas acceptés")
+        alert("Attention, un ou plusieurs caractères ne sont pas acceptés dans le champ nom")
         return
     }
 
     if (adresse.match("[_\\*&='#~$¤{@}€]") != null || adresse === ""){
-        alert("Attention, un ou plusieurs caractères ne sont pas acceptés")
+        alert("Attention, un ou plusieurs caractères ne sont pas acceptés dans le champ adresse")
         return
     }
 
     if (ville.match("[\\d_\\*&='#~$¤{@}€]") != null || ville === ""){
-        alert("Attention, un ou plusieurs caractères ne sont pas acceptés")
+        alert("Attention, un ou plusieurs caractères ne sont pas acceptés dans le champ ville")
         return
     }
 
