@@ -28,13 +28,13 @@ function creationCard(c){
     // créer h3 
     let h3 = document.createElement("h3");
     // ajouter class à h3
-    h3.className = "productName";
+    h3.classList.add("productName");
     // ajouter texte à h3 
     h3.innerText = c.name;
     //créer p 
     let p = document.createElement("p");
     //ajouter class à p
-    p.className = "productDescription";
+    p.classList.add("productDescription");
     // ajouter texte à p
     p.innerText = c.description
 

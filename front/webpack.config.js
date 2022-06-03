@@ -5,7 +5,8 @@ module.exports = {
   entry: {
     index: "./js/script.js",
     product: "./js/product.js",
-    cart: "./js/panier.js"
+    cart: "./js/cart.js",
+    confirmation: "./js/confirmation.js"
   },
   output: {
     filename: "[name].bundle.js",

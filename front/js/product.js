@@ -41,22 +41,28 @@ function creationProduit(c){
         select.appendChild(option);
     });
     parent.appendChild(img);
+
+    // ajout d'un produit dans le panier
+    let button = document.getElementById("addToCart");
+    button.onclick = () => {
+        ajout(c)
+        alert("Bravo! L'article a bien été ajouté au panier !")
+    }
 }
 
 
-// ajout d'un produit dans le panier
-let button = document.getElementById("addToCart");
-button.onclick = ajout
 
-function ajout(e){
+
+
+function ajout(produit){
+    console.log(produit)
     let choixColor = document.getElementById("colors");
     let color = choixColor.value;
-    
     let nombreArticle = document.getElementById("quantity");
     let quantiteArticle = nombreArticle.value;
-    
+
     // instancier une classe + création d'un panier
     let monPanier = new Panier();
-    monPanier.ajoutPanier(idUrl, quantiteArticle, color)
+    monPanier.ajoutPanier(idUrl, quantiteArticle, color, produit.imageUrl, produit.altTxt, produit.name)
 }
 
